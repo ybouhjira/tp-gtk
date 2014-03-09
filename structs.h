@@ -8,7 +8,8 @@ typedef gboolean boolean;
 /* Dimensions*/
 typedef struct
 {
-  int l, L;
+  int l; // longueur
+  int L; // largeur
 } Dimensions;
 
 /* Fenetre */
