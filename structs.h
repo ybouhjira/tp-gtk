@@ -19,7 +19,7 @@ typedef struct Fenetre
   boolean resizable;              // Redimonsionable
 
   boolean estPrincipale;          // Indique si la fenetre arrete le
-                                  // le programme lorsque elle est fermée
+  // le programme lorsque elle est fermée
 
   char icon[100];                 // Chemin de l'icone
 
@@ -27,22 +27,10 @@ typedef struct Fenetre
 
   Dimensions dimensions;          // longeur et largeur
 
-  GtkWidget *_private;            // variable privée ne pas modifier
+  //! Membre privés
+  GtkWidget *_widget;            // variable privée ne pas modifier
+  GtkWidget *_layout;              // container de la fenetre
 } Fenetre;
-
-Fenetre struct_fenetre_init()
-{
-  Fenetre fen = {
-    "", // titre
-    TRUE, // resizable,
-    TRUE, // true
-    "", // icon
-    NULL, // parent
-    {200, 300}, // dimension
-    NULL // _private
-  };
-  return fen;
-}
 
 /* Fond d'une fenetre */
 typedef struct
@@ -77,6 +65,10 @@ typedef struct
 {
   enum TypeConteneur{Horizontal, Vertical}  type;
   int espacement; // espace entre les widgets
+
+  // privés
+  GtkWidget *_widget;
 } Conteneur;
+
 
 #endif // STRUCTS_H
