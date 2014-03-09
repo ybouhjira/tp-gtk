@@ -5,6 +5,12 @@
 
 typedef gboolean boolean;
 
+/* Dimensions*/
+typedef struct
+{
+  int l, L;
+} Dimensions;
+
 /* Fenetre */
 typedef struct Fenetre
 {
@@ -12,9 +18,16 @@ typedef struct Fenetre
   boolean resizable; // Redimonsionable
   char icon[100]; // Chemin de l'icon
   struct Fenetre *parent;
+  Dimensions dimensions;
 
   GtkWidget *_private; // variable privée ne pas modifier
 } Fenetre;
+
+Fenetre struct_fenetre_init()
+{
+  Fenetre fen = {"", TRUE, "", NULL, {200, 300}, NULL};
+  return fen;
+}
 
 /* Fond d'une fenetre */
 typedef struct
@@ -23,11 +36,6 @@ typedef struct
   char valeur[100]; // code de la couleur ou chemin de l'image
 } Fond;
 
-/* Dimensions*/
-typedef struct
-{
-  int largeur, longueur;
-} Dimensions;
 
 /* Image */
 typedef struct
