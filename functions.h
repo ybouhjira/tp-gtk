@@ -27,6 +27,11 @@ void fenetre_creer(Fenetre *fen)
   //// Fenetre mere
   if(fen->parent)
     gtk_widget_set_parent(fen->_private, fen->parent->_private);
+
+  //// Fermer le programme lors de la femeture
+  if(fen->estPrincipale)
+  gtk_signal_connect(G_OBJECT(fen->_private), "destroy",
+                     G_CALLBACK(gtk_main_quit), NULL);
 }
 
 void fenetre_afficher(Fenetre fenetre)

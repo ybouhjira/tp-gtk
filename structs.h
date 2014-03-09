@@ -16,17 +16,31 @@ typedef struct
 typedef struct Fenetre
 {
   char titre[100];
-  boolean resizable; // Redimonsionable
-  char icon[100]; // Chemin de l'icon
-  struct Fenetre *parent;
-  Dimensions dimensions;
+  boolean resizable;              // Redimonsionable
 
-  GtkWidget *_private; // variable privée ne pas modifier
+  boolean estPrincipale;          // Indique si la fenetre arrete le
+                                  // le programme lorsque elle est fermée
+
+  char icon[100];                 // Chemin de l'icone
+
+  struct Fenetre *parent;         // fenetre mere
+
+  Dimensions dimensions;          // longeur et largeur
+
+  GtkWidget *_private;            // variable privée ne pas modifier
 } Fenetre;
 
 Fenetre struct_fenetre_init()
 {
-  Fenetre fen = {"", TRUE, "", NULL, {200, 300}, NULL};
+  Fenetre fen = {
+    "", // titre
+    TRUE, // resizable,
+    TRUE, // true
+    "", // icon
+    NULL, // parent
+    {200, 300}, // dimension
+    NULL // _private
+  };
   return fen;
 }
 
@@ -36,7 +50,6 @@ typedef struct
   enum TypeFond{Image, Couleur} type;
   char valeur[100]; // code de la couleur ou chemin de l'image
 } Fond;
-
 
 /* Image */
 typedef struct
@@ -53,14 +66,12 @@ typedef struct
   char couleur[10]; // hex : #AABB23, ou nom : red, blue, ...
 } Texte;
 
-
 /* Bouton */
 typedef struct
 {
   enum TypeButton{Img, Text} type;
   void (*callback_click)(void);
 } Button;
-
 
 typedef struct
 {
