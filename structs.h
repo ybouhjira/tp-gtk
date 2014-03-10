@@ -3,6 +3,8 @@
 
 #include <gtk/gtk.h>
 
+#include "liste.h"
+
 typedef gboolean boolean;
 
 /** Conteneur **/
@@ -38,6 +40,8 @@ typedef struct Fenetre
   Dimensions dimensions;          // longeur et largeur
 
   Conteneur *conteneur;           // Conteneur
+
+  int padding;
 
   //! Membre privés
   GtkWidget *_widget;            // variable privée ne pas modifier
@@ -78,6 +82,16 @@ typedef struct
   GtkWidget *_wiget;
 } Bouton;
 
+
+//// MENU /////////////////////////////////////////////////////////////////
+
+typedef struct
+{
+  Liste *elements;
+
+  // privé
+  GtkWidget *_widget;
+} Menu;
 
 
 

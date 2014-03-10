@@ -1,7 +1,9 @@
 #include "functions.h"
 #include "structs.h"
-#include <string.h>
+#include "liste.h"
 
+#include <string.h>
+#include <stdlib.h>
 
 void quitter()
 {
@@ -43,6 +45,19 @@ int main(int argc, char **argv)
   bouton3.callback = quitter;
   bouton_creer(&bouton3);
   conteneur_ajouter_bouton(conteneur, bouton3);
+
+
+  Menu menu = struct_menu_init();
+  menu_creer(&menu);
+
+  liste_ajout_fin(&menu.elements, "Element 1");
+  liste_ajout_fin(&menu.elements, "Element 2");
+  liste_ajout_fin(&menu.elements, "Element 3");
+  liste_ajout_fin(&menu.elements, "Element 4");
+
+  menu_creer(&menu);
+
+  conteneur_ajouter_menu(conteneur, menu);
 
   // fin ----------
   fenetre_afficher(fen);

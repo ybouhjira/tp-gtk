@@ -20,4 +20,5 @@ unix: PKGCONFIG += gtk+-2.0
 
 HEADERS += \
     structs.h \
-    functions.h
+    functions.h \
+    liste.h

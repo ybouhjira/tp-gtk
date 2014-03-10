@@ -29,6 +29,7 @@ Fenetre struct_fenetre_init()
       NULL,       // parent
       {200, 300}, // dimension
       NULL,       // conteneur
+      10,    // padding
       NULL,       // _private
     };
 }
@@ -66,6 +67,10 @@ void fenetre_creer(Fenetre *fen)
   if(fen->conteneur)
     gtk_container_add(GTK_CONTAINER(fen->_widget),
                       fen->conteneur->_widget);
+
+  //// padding
+  gtk_container_set_border_width(GTK_CONTAINER(fen->_widget),
+                                 fen->padding);
 }
 
 void fenetre_afficher(Fenetre fenetre)
@@ -110,6 +115,11 @@ void conteneur_ajouter_bouton(Conteneur conteneur, Bouton bouton)
   gtk_container_add(GTK_CONTAINER(conteneur._widget), bouton._wiget);
 }
 
+void conteneur_ajouter_menu(Conteneur conteneur, Menu menu)
+{
+  gtk_container_add(GTK_CONTAINER(conteneur._widget), menu._widget);
+}
+
 //// BOUTTON //////////////////////////////////////////////////////////////
 
 Bouton struct_bouton_init()
@@ -131,6 +141,26 @@ void bouton_creer(Bouton *bouton)
   if(bouton->callback)
     gtk_signal_connect(GTK_OBJECT(bouton->_wiget), "clicked",
                       G_CALLBACK(bouton->callback), NULL);
+}
+
+//// MENU /////////////////////////////////////////////////////////////////
+
+Menu struct_menu_init()
+{
+  return (Menu) {
+      NULL, // elements
+      NULL  // _widget
+    };
+}
+
+void menu_creer(Menu *menu)
+{
+  menu->_widget = gtk_combo_box_new_text();
+
+  Liste *courant = menu->elements;
+  for(; courant; courant = courant->suiv)
+      gtk_combo_box_append_text(GTK_COMBO_BOX(menu->_widget),
+                                     courant->val);
 }
 
 #endif // FUNCTIONS_H
