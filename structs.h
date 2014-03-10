@@ -79,7 +79,7 @@ typedef struct
   char image[100];  // image
 
   // privé
-  GtkWidget *_wiget;
+  GtkWidget *_widget;
 } Bouton;
 
 
@@ -94,5 +94,13 @@ typedef struct
 } Menu;
 
 
+//// CHECKBUTTON /////////////////////////////////////////////////////////////////
+
+typedef struct
+{
+  char text[100]; // texte
+
+  GtkWidget *_widget;
+} CheckBox;
 
 #endif // STRUCTS_H

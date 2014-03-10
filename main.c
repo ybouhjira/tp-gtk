@@ -47,6 +47,7 @@ int main(int argc, char **argv)
   conteneur_ajouter_bouton(conteneur, bouton3);
 
 
+  // menu
   Menu menu = struct_menu_init();
   menu_creer(&menu);
 
@@ -59,6 +60,11 @@ int main(int argc, char **argv)
 
   conteneur_ajouter_menu(conteneur, menu);
 
+  // checkbox
+  CheckBox caseACocher = struct_checkbox_init();
+  strcpy(caseACocher.text, "Case a cocher");
+  checkbox_creer(&caseACocher);
+  conteneur_ajouter_checkbox(conteneur, caseACocher);
   // fin ----------
   fenetre_afficher(fen);
   boucle_principale();

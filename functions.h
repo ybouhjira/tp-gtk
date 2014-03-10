@@ -112,12 +112,17 @@ void conteneur_ajouter_conteneur(Conteneur c1, Conteneur c2)
 
 void conteneur_ajouter_bouton(Conteneur conteneur, Bouton bouton)
 {
-  gtk_container_add(GTK_CONTAINER(conteneur._widget), bouton._wiget);
+  gtk_container_add(GTK_CONTAINER(conteneur._widget), bouton._widget);
 }
 
 void conteneur_ajouter_menu(Conteneur conteneur, Menu menu)
 {
   gtk_container_add(GTK_CONTAINER(conteneur._widget), menu._widget);
+}
+
+void conteneur_ajouter_checkbox(Conteneur conteneur, CheckBox cbox)
+{
+  gtk_container_add(GTK_CONTAINER(conteneur._widget), cbox._widget);
 }
 
 //// BOUTTON //////////////////////////////////////////////////////////////
@@ -134,12 +139,12 @@ Bouton struct_bouton_init()
 
 void bouton_creer(Bouton *bouton)
 {
-  bouton->_wiget = gtk_button_new_with_label(bouton->text);
-  gtk_button_set_image(GTK_BUTTON(bouton->_wiget),
+  bouton->_widget = gtk_button_new_with_label(bouton->text);
+  gtk_button_set_image(GTK_BUTTON(bouton->_widget),
                        gtk_image_new_from_file(bouton->image));
 
   if(bouton->callback)
-    gtk_signal_connect(GTK_OBJECT(bouton->_wiget), "clicked",
+    gtk_signal_connect(GTK_OBJECT(bouton->_widget), "clicked",
                       G_CALLBACK(bouton->callback), NULL);
 }
 
@@ -161,6 +166,22 @@ void menu_creer(Menu *menu)
   for(; courant; courant = courant->suiv)
       gtk_combo_box_append_text(GTK_COMBO_BOX(menu->_widget),
                                      courant->val);
+}
+
+///// CHECKBOX ////////////////////////////////////////////////////////////
+
+CheckBox struct_checkbox_init()
+{
+  return (CheckBox) {
+      "",  // text
+      NULL,
+    };
+}
+
+void checkbox_creer(CheckBox *cbox)
+{
+  cbox->_widget = gtk_check_button_new_with_label(cbox->text);
+
 }
 
 #endif // FUNCTIONS_H
