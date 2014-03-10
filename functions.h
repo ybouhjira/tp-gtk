@@ -28,8 +28,8 @@ Fenetre struct_fenetre_init()
       "",         // icon
       NULL,       // parent
       {200, 300}, // dimension
+      NULL,       // conteneur
       NULL,       // _private
-      NULL,       // _layout
     };
 }
 
@@ -62,9 +62,10 @@ void fenetre_creer(Fenetre *fen)
   gtk_signal_connect(GTK_OBJECT(fen->_widget), "destroy",
                      G_CALLBACK(gtk_main_quit), NULL);
 
-  ////  Layout
-  if(fen->_layout)
-    gtk_container_add(GTK_CONTAINER(fen->_widget), fen->_layout);
+  //// Layout
+  if(fen->conteneur)
+    gtk_container_add(GTK_CONTAINER(fen->_widget),
+                      fen->conteneur->_widget);
 }
 
 void fenetre_afficher(Fenetre fenetre)
@@ -102,6 +103,34 @@ void conteneur_creer(Conteneur *conteneur)
 void conteneur_ajouter_conteneur(Conteneur c1, Conteneur c2)
 {
   gtk_container_add(GTK_CONTAINER(c1._widget), c2._widget);
+}
+
+void conteneur_ajouter_bouton(Conteneur conteneur, Bouton bouton)
+{
+  gtk_container_add(GTK_CONTAINER(conteneur._widget), bouton._wiget);
+}
+
+//// BOUTTON //////////////////////////////////////////////////////////////
+
+Bouton struct_bouton_init()
+{
+  return (Bouton) {
+      NULL,                 // callback
+      "",                   // texte
+      "",                   // image
+      NULL                  // _widget
+    };
+}
+
+void bouton_creer(Bouton *bouton)
+{
+  bouton->_wiget = gtk_button_new_with_label(bouton->text);
+  gtk_button_set_image(GTK_BUTTON(bouton->_wiget),
+                       gtk_image_new_from_file(bouton->image));
+
+  if(bouton->callback)
+    gtk_signal_connect(GTK_OBJECT(bouton->_wiget), "clicked",
+                      G_CALLBACK(bouton->callback), NULL);
 }
 
 #endif // FUNCTIONS_H

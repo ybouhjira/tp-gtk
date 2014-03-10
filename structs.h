@@ -5,7 +5,17 @@
 
 typedef gboolean boolean;
 
-/* Dimensions*/
+/** Conteneur **/
+typedef struct
+{
+  enum TypeConteneur{Horizontal, Vertical}  type;
+  int espacement; // espace entre les widgets
+
+  // privés
+  GtkWidget *_widget;
+} Conteneur;
+
+/** Dimensions **/
 typedef struct
 {
   int l; // longueur
@@ -27,9 +37,10 @@ typedef struct Fenetre
 
   Dimensions dimensions;          // longeur et largeur
 
+  Conteneur *conteneur;           // Conteneur
+
   //! Membre privés
   GtkWidget *_widget;            // variable privée ne pas modifier
-  GtkWidget *_layout;              // container de la fenetre
 } Fenetre;
 
 /* Fond d'une fenetre */
@@ -57,18 +68,17 @@ typedef struct
 /* Bouton */
 typedef struct
 {
-  enum TypeButton{Img, Text} type;
-  void (*callback_click)(void);
-} Button;
+  void (*callback)(void); // Le callback appelée lorsque le bouton
+                          // est cliqué
 
-typedef struct
-{
-  enum TypeConteneur{Horizontal, Vertical}  type;
-  int espacement; // espace entre les widgets
+  char text[100]; // texte
+  char image[100];  // image
 
-  // privés
-  GtkWidget *_widget;
-} Conteneur;
+  // privé
+  GtkWidget *_wiget;
+} Bouton;
+
+
 
 
 #endif // STRUCTS_H
